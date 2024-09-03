@@ -1,0 +1,93 @@
+KarenBot - Document de Cadrage
+1. Contexte et Objectifs du Projet
+
+KarenBot est un projet visant à développer un chatbot intelligent pour assister les techniciens de maintenance dans leurs tâches de gestion et de maintenance du système informatique des HCL. Les objectifs principaux sont :
+
+    Automatiser les réponses aux questions fréquentes pour réduire le temps passé sur les demandes récurrentes.
+    Faciliter la navigation vers les documents et fichiers via des redirections précises et automatisées.
+    Améliorer la saisie et la gestion des tickets de maintenance avec un système de pré-remplissage intelligent.
+
+2. Technologies Utilisées
+
+Le développement de KarenBot se fera en utilisant les technologies suivantes :
+
+    PHP (MVC) : Gestion de la logique serveur et création de l'interface utilisateur.
+    Rasa : Intelligence conversationnelle et gestion des dialogues complexes.
+    JavaScript, HTML, CSS : Développement du frontend interactif.
+    MySQL : Gestion et stockage des données.
+    Excel : Import et export de données avec redirections automatisées.
+
+3. Fonctionnalités du Chatbot
+
+    Redirection vers Fichiers Excel et Liens
+        Système de redirection par mots-clés vers des fichiers Excel et des liens pertinents.
+        Liste des redirections gérée et mise à jour selon les besoins.
+
+    Réponses aux Prompts par Niveau
+        Réponses hiérarchisées par niveau d'expertise (si applicable).
+        Fonctionnalité opérationnelle même en l'absence de système de niveaux.
+
+    Récupération et Utilisation des Données Excel
+        Extraction des données depuis des fichiers Excel pour des réponses plus pertinentes.
+
+    Redirection vers Fichiers GEDI
+        Intégration avec le système GEDI pour la gestion électronique des documents.
+
+    Smart Research
+        Recherche intelligente avec prise en compte des fautes d'orthographe et gestion de la casse.
+
+    Préremplissage des Tickets
+        Automatisation de la saisie des informations des tickets pour réduire les erreurs humaines.
+
+    Réponse Automatique ou Redirection
+        Réponses automatisées pour les demandes simples.
+        Redirection vers des experts pour les cas plus complexes.
+
+    Aide à l'Identification des Services
+        Assistance pour identifier le bon service à contacter selon la demande.
+
+4. Sécurité
+
+    Protection des données : Conformité avec les normes de sécurité et protection des données sensibles.
+    Authentification sécurisée : Gestion des accès avec des protocoles d’authentification pour protéger les informations critiques.
+
+5. Bénéfices Attendus
+
+    Gain de temps pour les techniciens grâce à l'automatisation des tâches répétitives.
+    Réduction des erreurs humaines avec le préremplissage et les réponses automatisées.
+    Amélioration de la satisfaction des utilisateurs grâce à une assistance rapide et précise.
+
+6. Plan de Développement et Déploiement
+Phase 1: Conception et Planification (4-10 octobre 2024)
+
+    Définition des spécifications (4-5 octobre 2024)
+        Finalisation des exigences et fonctionnalités du chatbot.
+    Architecture du système (6-10 octobre 2024)
+        Conception de l'architecture technique et des intégrations nécessaires.
+
+Phase 2: Développement Initial (11-24 octobre 2024)
+
+    Configuration de l'environnement (11-12 octobre 2024)
+        Création et configuration de l'environnement Python et PHP.
+
+    Développement du Backend (13-17 octobre 2024)
+        Mise en place du serveur Rasa et intégration avec PHP.
+
+    Développement du Frontend (18-24 octobre 2024)
+        Création de l'interface utilisateur en JavaScript, HTML, et CSS.
+
+Phase 3: Intégration et Tests (25-28 octobre 2024)
+
+    Intégration des fonctionnalités (25-26 octobre 2024)
+        Intégration des fonctionnalités de redirection, recherche intelligente, et préremplissage des tickets.
+    Tests fonctionnels et unitaires (27-28 octobre 2024)
+        Tests des fonctionnalités du chatbot et correction des bugs.
+
+Phase 4: Formation et Déploiement (29-31 octobre 2024)
+
+    Formation des utilisateurs (29-30 octobre 2024)
+        Sessions de formation pour les techniciens et les utilisateurs finaux.
+    Déploiement en production (31 octobre 2024)
+        Mise en production du chatbot et surveillance des performances.
+
+Ce document servira de référence pour assurer que toutes les fonctionnalités et exigences du projet sont respectées et intégrées correctement. Les dates et tâches clés permettent de suivre les progrès et d'ajuster le plan selon les besoins.

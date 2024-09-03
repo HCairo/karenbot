@@ -1,0 +1,128 @@
+Cahier des Charges - KarenBot
+1. Introduction
+1.1 Contexte
+
+KarenBot est un projet visant à développer un chatbot intelligent pour assister les techniciens de maintenance dans la gestion et la maintenance des systèmes informatiques des HCL. Le projet utilise des technologies modernes pour automatiser les réponses, faciliter la navigation vers des documents, et améliorer la gestion des tickets.
+1.2 Objectifs
+
+    Automatiser les réponses aux questions fréquentes.
+    Faciliter la navigation vers les documents et fichiers.
+    Améliorer la saisie et la gestion des tickets de maintenance.
+
+2. Description du Projet
+2.1 Fonctionnalités
+2.1.1 Redirection vers Fichiers Excel et Liens
+
+    Redirection par mots-clés vers des fichiers Excel et des liens pertinents.
+    Liste des redirections gérée et mise à jour selon les besoins.
+
+2.1.2 Réponses aux Prompts par Niveau
+
+    Réponses hiérarchisées par niveau d'expertise (si applicable).
+    Fonctionnalité opérationnelle même sans système de niveaux.
+
+2.1.3 Récupération et Utilisation des Données Excel
+
+    Extraction des données depuis des fichiers Excel pour des réponses plus pertinentes.
+
+2.1.4 Redirection vers Fichiers GEDI
+
+    Intégration avec le système GEDI pour la gestion électronique des documents.
+
+2.1.5 Smart Research
+
+    Recherche intelligente avec prise en compte des fautes d'orthographe et gestion de la casse.
+
+2.1.6 Préremplissage des Tickets
+
+    Automatisation de la saisie des informations des tickets pour réduire les erreurs humaines.
+
+2.1.7 Réponse Automatique ou Redirection
+
+    Réponses automatisées pour les demandes simples.
+    Redirection vers des experts pour les cas plus complexes.
+
+2.1.8 Aide à l'Identification des Services
+
+    Assistance pour identifier le bon service à contacter selon la demande.
+
+2.2 Technologies Utilisées
+
+    PHP (MVC) : Pour la logique serveur et l'interface utilisateur.
+    Rasa : Pour l'intelligence conversationnelle.
+    JavaScript, HTML, CSS : Pour le développement du frontend.
+    MySQL : Pour la gestion et le stockage des données.
+    Excel : Pour l'import et l'export de données.
+
+3. Architecture et Conception
+3.1 Architecture Système
+
+    Backend : Serveur Rasa intégré avec PHP.
+    Frontend : Interface utilisateur en JavaScript, HTML, et CSS.
+    Base de données : MySQL pour la gestion des données.
+    Intégrations : Connexion avec Excel et le système GEDI.
+
+3.2 Maquettes
+
+    Maquette de l'Interface Utilisateur : [À compléter]
+    Diagramme de l'Architecture : [À compléter]
+
+4. Plan de Développement
+4.1 Conception et Planification (4-10 octobre 2024)
+
+    Définition des spécifications.
+    Conception de l'architecture technique.
+
+4.2 Développement Initial (11-24 octobre 2024)
+
+    Configuration de l'environnement.
+    Développement du Backend.
+    Développement du Frontend.
+
+4.3 Intégration et Tests (25-28 octobre 2024)
+
+    Intégration des fonctionnalités.
+    Tests fonctionnels et unitaires.
+
+4.4 Formation et Déploiement (29-31 octobre 2024)
+
+    Formation des utilisateurs.
+    Déploiement en production.
+
+5. Sécurité
+5.1 Protection des Données
+
+    Conformité avec les normes de sécurité et de protection des données.
+
+5.2 Authentification Sécurisée
+
+    Gestion des accès avec des protocoles d’authentification.
+
+6. Bénéfices Attendus
+
+    Gain de temps pour les techniciens.
+    Réduction des erreurs humaines.
+    Amélioration de la satisfaction des utilisateurs.
+
+7. Support et Maintenance
+7.1 Support Post-Déploiement
+
+    Mise en place d’un système de support.
+    Résolution des problèmes et maintenance continue.
+
+7.2 Formation
+
+    Sessions de formation pour les techniciens et les utilisateurs finaux.
+
+8. Annexes
+8.1 Glossaire
+
+    NLP (Natural Language Processing) : Traitement du langage naturel.
+    API (Application Programming Interface) : Interface de programmation pour l’intégration des systèmes.
+
+8.2 Références
+
+    Documentation de Rasa
+    Documentation PHP et MVC
+
+Ce cahier des charges sert de guide pour le développement de KarenBot, en fournissant une vue d'ensemble complète des fonctionnalités, technologies, et étapes de développement. Les sections vides pour les maquettes et les diagrammes doivent être complétées lors de la phase de conception pour fournir des détails visuels supplémentaires.
