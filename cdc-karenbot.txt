@@ -68,23 +68,23 @@ KarenBot est un projet visant à développer un chatbot intelligent pour assiste
     Diagramme de l'Architecture : [À compléter]
 
 4. Plan de Développement
-4.1 Conception et Planification (4-10 octobre 2024)
+4.1 Conception et Planification (4-10 septembre 2024)
 
     Définition des spécifications.
     Conception de l'architecture technique.
 
-4.2 Développement Initial (11-24 octobre 2024)
+4.2 Développement Initial (11-28 septembre 2024)
 
     Configuration de l'environnement.
     Développement du Backend.
     Développement du Frontend.
 
-4.3 Intégration et Tests (25-28 octobre 2024)
+4.3 Intégration et Tests (29 septembre - 18 octobre 2024)
 
     Intégration des fonctionnalités.
     Tests fonctionnels et unitaires.
 
-4.4 Formation et Déploiement (29-31 octobre 2024)
+4.4 Formation et Déploiement (19-31 octobre 2024)
 
     Formation des utilisateurs.
     Déploiement en production.

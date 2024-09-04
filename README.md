@@ -37,7 +37,7 @@ cd karenbot
 ### 2. Installation de l'environnement python pour Rasa
 
 ```bash
-python3 -m venv rasa-env
+python3.8 -m venv rasa-env (SETUPTOOLS)
 source rasa-env/bin/activate (MAC/LINUX)
 rasa-env\Scripts\activate (WINDOWS)
 pip install rasa
