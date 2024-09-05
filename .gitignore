@@ -8,8 +8,10 @@ __pycache__/
 *.pyd
 *.so
 
+chatbot/.rasa/
+
 # Rasa models
-models/
+chatbot/models/
 *.tar.gz
 
 # Unignore the MVC models folder
