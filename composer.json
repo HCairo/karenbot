@@ -7,10 +7,10 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "App/",
-            "Controllers\\": "App/controllers/",
-            "Models\\": "App/models/",
-            "Views\\": "App/views/",
+            "App\\": "app/",
+            "Controllers\\": "app/controllers/",
+            "Models\\": "app/models/",
+            "Views\\": "app/views/",
             "Assets\\": "assets/",
             "Public\\": "public/",
             "Lib\\": "lib/"

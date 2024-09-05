@@ -1,34 +1,39 @@
-version: "3.1"
+version: "3.0"
 
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - password_reset
+  - internet_issue
+  - printer_issue
+  - software_installation
+  - hardware_issue
+  - ticket_creation
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+    - text: "Bonjour! Comment puis-je vous aider aujourd'hui?"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Au revoir! N'hésitez pas à me solliciter de nouveau."
 
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  utter_ask_problem:
+    - text: "Quel problème rencontrez-vous?"
 
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  utter_password_reset:
+    - text: "Vous pouvez réinitialiser votre mot de passe en suivant ces étapes : 1. Allez sur le portail de réinitialisation. 2. Entrez votre adresse email. 3. Suivez les instructions envoyées par email."
+
+  utter_internet_issue:
+    - text: "Essayez ces étapes pour résoudre les problèmes de connexion : 1. Redémarrez votre routeur. 2. Vérifiez si d'autres appareils sont connectés. 3. Assurez-vous que votre câble réseau est bien branché."
+
+  utter_printer_issue:
+    - text: "Voici quelques solutions pour résoudre les problèmes d'imprimante : 1. Vérifiez si l'imprimante est allumée. 2. Assurez-vous qu'elle est connectée au réseau. 3. Vérifiez les niveaux d'encre ou de toner."
+
+  utter_software_installation:
+    - text: "Pour installer le logiciel, suivez ces instructions : 1. Téléchargez le fichier d'installation depuis le site officiel. 2. Lancez le fichier téléchargé. 3. Suivez les instructions à l'écran pour compléter l'installation."
+
+  utter_hardware_issue:
+    - text: "Si votre ordinateur ne démarre pas, essayez les étapes suivantes : 1. Vérifiez si l'ordinateur est branché. 2. Essayez de le redémarrer. 3. Si le problème persiste, contactez le service technique."
+
+  utter_ticket_creation:
+    - text: "Pour créer un ticket de support, accédez au système de gestion des tickets et remplissez les détails de votre problème. Voici un lien direct vers le système de tickets : [Ticket System Link]."

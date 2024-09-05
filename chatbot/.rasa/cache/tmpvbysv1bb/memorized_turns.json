@@ -1,0 +1,22 @@
+{
+  "lookup": {
+    "eJyLrq6NBQAEOAGx": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuFkszk7NSS+OSi1ESQutraWAASph+m": "utter_ticket_creation",
+    "eJyFjEEKgDAMBL+SB/QF/YpIKCWHoEZJt15C/y6iJy/eZmF2phiJ4nA5uVTobpniAbaySaZ3rNogNhL1Jp4p1CCGTNC6CLi6lNsbP7UOiPP39F+dL0pjQPo=": "action_listen",
+    "eJwtysEJgDAMQNFVMkAnyCoiJUiEQE1LE/UQsruI3v6Dv0QWiDH5qrS5dEWIL6rSwQg/mpizZoHTeCKEqLM6gvXdb5pcRc2pNXrvzPUB20wiSg==": "utter_software_installation",
+    "eJyNjUEKgDAMBL+SB/QF/YpICRKhUKMkWz2U/l1Ej4LedmF2dmg9UNtM9sQT8qqR2h2S8iKRnlKyQ7QHqi4WqWWFKCL5OuNgk5TVwaXwRfcPZwXE0vv078N4AlNOSOY=": "action_listen",
+    "eJwtx8EJwDAIAMBVHCATuEopEoIPobVBTT/i7qW0v7stq0FO45v6CLkUIT+Q9pMR/hziwVoNlrMhpGiwBsK0V0bivrhqfwDVth76": "utter_printer_issue",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuFgiIQqyg+s7i4NLWWgFmlJSClqFoImRgLANtoPvY=": "action_listen",
+    "eJwtx8ENgDAIBdBVGKATsIoxTaP/0ERpA6gHwu4e9PbeElkopuKubfM+hCk+VGknmP4c3RyShS6DMkUXhzjTbGbP0L0qDJ65vvT2H2M=": "utter_password_reset",
+    "eJyFjLENgDAMwF7JAb0gryAUVZChEqRVksIQ9XcGmFi62YO9xEgQTfmivHmpghAvkOSTET45ijnLSNCNFSGKOIsjtGx2V91J2djHZNbdWenXTJ/rA5zuQDE=": "action_listen",
+    "eJwtx0EKgEAIAMCv+IB9gV+JWKSEhLJQtw7i3zvUbWbKapCX8d1pCTkVIT90pYMR/uziwVoNhrMhpGiwBsJGtj5k3MV9cNX8AvMdH0Q=": "utter_hardware_issue",
+    "eJyFjLEJgEAMAFfJAD/BryISggYMaJQkr0X43S20srG7K+6G7AXyMD6RppBdK+QDqLRxhVdW8WDtBZqzVUjRYI0KC9l8kTGKe+P+M2sRbPhpfp/jDYlXP9Q=": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuF9Pz8lKTK1NraWAAh+hxX": "utter_goodbye",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuF9Pz8lKTK1FoCppSWlKQWxcMU4zYlFgCMqTcN": "action_listen",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuF9KLU1JLa2lgA6dwbhQ==": "utter_greet",
+    "eJyLrq7VUaguKEoti09MLsnMz7NSqIYw4vMSc1OtFKCcnMziktS8Wh2F0uLUIiuF6sy8ktS8EiuF9KLU1JJaAmaUlpSkFsVDlOIyIRYAQvc0lw==": "utter_ask_problem",
+    "eJylzEEKgCAQheGrzAE8gVeJEItHSDrKOLYR797CttGi3fvh8S19GOpFcDm/a8hsqc/h2CdYeiKGquBhqFWIpR5YwWrpEEDHh9FUIW5e/wi+nq5I3iLSq7Pe84dQIQ==": "action_listen",
+    "eJwtx8EJgEAMBdFWUsBWkFZElkX+IaBRkqyXkN5F9DRvlqxGeRnuPraQU5nyQ9dxgOmfXTyg1Wg6jClFAxpMb00RXdwnqtYH9IwfXw==": "utter_internet_issue",
+    "eJyFjDEKgEAMBL+SB9wL8hWRILJFQKNccjbh/i6ilc1Vs1PsTNkL5VlxybKGHsaU7xBbdjB9sqkHrBdqjsqUagELpofVEKLuDX0QaxGo8vsMm/MNmeBAJQ==": "action_listen"
+  }
+}

@@ -12,6 +12,9 @@ __pycache__/
 models/
 *.tar.gz
 
+# Unignore the MVC models folder
+!app/models/
+
 # Rasa cache
 .cache/
 .cache/**

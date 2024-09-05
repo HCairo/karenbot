@@ -1,30 +1,43 @@
-version: "3.1"
+version: "3.0"
 
 stories:
+  - story: greet and ask problem
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_ask_problem
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - story: password reset
+    steps:
+      - intent: password_reset
+      - action: utter_password_reset
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+  - story: internet issue
+    steps:
+      - intent: internet_issue
+      - action: utter_internet_issue
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - story: printer issue
+    steps:
+      - intent: printer_issue
+      - action: utter_printer_issue
+
+  - story: software installation
+    steps:
+      - intent: software_installation
+      - action: utter_software_installation
+
+  - story: hardware issue
+    steps:
+      - intent: hardware_issue
+      - action: utter_hardware_issue
+
+  - story: ticket creation
+    steps:
+      - intent: ticket_creation
+      - action: utter_ticket_creation
+
+  - story: goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
