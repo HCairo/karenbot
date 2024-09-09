@@ -13,20 +13,22 @@ $dotenv->load();
 
 // Obtenir l'action de la requête / Get the action from the request
 $action = $_REQUEST['action'] ?? null;
+$logged = $_SESSION['user'];
 
 // Sélectionner le contrôleur approprié en fonction de l'action / Select the appropriate controller based on the action
 switch ($action) {
+    // Par défaut, afficher la page d'accueil / By default, display the home page
+    default:
+        if ($logged) {
+            $controller = new KarenController();
+            $controller->handleChat();
+        } else {
+            $controller = new AuthController();
+            $controller->login();
+        }
+        break;
     case 'login':
         $controller = new AuthController();
         $controller->login();
         break;
-
-    // Par défaut, afficher la page d'accueil / By default, display the home page
-    default:
-        $controller = new KarenController();
-        $controller->handleChat();
-        break;
-
-    // Afficher la page d'accueil / Display the home page
-
 }

@@ -11,7 +11,6 @@ class AuthController {
     public function __construct() {
         $this->model = new AuthModel();
         $this->view = new AuthView();
-        session_start(); 
     }
 
     public function login() {
@@ -21,7 +20,7 @@ class AuthController {
             $result = $this->model->login($mail, $pswd);
             if ($result) {
                 $_SESSION['user'] = $result;
-                header('Location: index.php');
+                header('Location: http://localhost/karenbot/');
                 exit;
             } else {
                 echo "<p>Identifiants incorrects.</p>";

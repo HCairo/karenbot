@@ -13,7 +13,7 @@ class AuthModel {
 
     public function login($mail, $pswd) {
         $sql = "SELECT * FROM users WHERE mail = :mail AND pswd = :pswd";
-        $query = $this->db->getPDO()->prepare($sql);
+        $query = $this->db->getConnection()->prepare($sql);
         $query->bindParam(':mail', $mail, PDO::PARAM_STR);
         $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
         $query->execute();

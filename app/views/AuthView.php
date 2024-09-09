@@ -6,7 +6,7 @@ class AuthView {
         ?>
         <h1>Connexion</h1>
 
-        <form action="?action=login" method="post"> <!-- Correction ici -->
+        <form action="?action=login" method="post">
             <label for="mail">Adresse mail</label>
             <input type="text" name="mail" id="mail" required>
 
