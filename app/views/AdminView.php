@@ -16,6 +16,7 @@ class AdminView {
                     <th>Nom</th>
                     <th>Mail</th>
                     <th>Niveau</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@ class AdminView {
                         <td><?= htmlspecialchars($user['lastname'] ?? ''); ?></td>
                         <td><?= htmlspecialchars($user['mail'] ?? ''); ?></td>
                         <td><?= htmlspecialchars($user['level_id'] ?? ''); ?></td> 
+                        <td><?= htmlspecialchars($user['is_admin'] ?? ''); ?></td> 
                         <td>
                             <a href="?action=admin&admin_action=edit&id=<?= htmlspecialchars($user['id'] ?? ''); ?>">Modifier</a> |
                             <a href="?action=admin&admin_action=delete&id=<?= htmlspecialchars($user['id'] ?? ''); ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
@@ -56,8 +58,17 @@ class AdminView {
             <label for="pswd">Mot de passe :</label>
             <input type="password" name="pswd" id="pswd" required><br>
 
-            <label for="level_id">Niveau :</label>
-            <input type="number" name="level_id" id="level_id" required><br>
+            <label for="level_id">Niveau</label>
+            <select name="level_id" id="level_id" required>
+                <option value="1">Technicien niveau 0-1</option>
+                <option value="2">Technicien niveau 2</option>
+            </select><br>
+
+            <label for="is_admin">Role</label>
+            <select name="is_admin" id="is_admin" required>
+                <option value="0">Invite</option>
+                <option value="1">Admin</option>
+            </select><br>
 
             <button type="submit">Créer</button>
         </form>
@@ -84,7 +95,16 @@ class AdminView {
             <input type="password" name="pswd" id="pswd" placeholder="Laisser vide pour ne pas changer"><br>
 
             <label for="level_id">Niveau :</label>
-            <input type="number" name="level_id" id="level_id" value="<?= htmlspecialchars($user['level_id'] ?? ''); ?>" required><br>
+            <select name="level_id" id="level_id" required>
+                <option value="1" <?= ($user['level_id'] == 1) ? 'selected' : ''; ?>>Technicien niveau 0-1</option>
+                <option value="2" <?= ($user['level_id'] == 2) ? 'selected' : ''; ?>>Technicien niveau 2</option>
+            </select><br>
+
+            <label for="is_admin">Role :</label>
+            <select name="is_admin" id="is_admin" required>
+                <option value="1" <?= ($user['is_admin'] == 0) ? 'selected' : ''; ?>>Invite</option>
+                <option value="2" <?= ($user['is_admin'] == 1) ? 'selected' : ''; ?>>Admin</option>
+            </select><br>
 
             <button type="submit">Modifier</button>
         </form>

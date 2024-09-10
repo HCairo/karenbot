@@ -13,7 +13,7 @@ class AdminController {
         $this->view = new AdminView();
     }
 
-    // Afficher la liste des utilisateurs (Méthode index manquante)
+    // Afficher la liste des utilisateurs
     public function index() {
         // Récupérer tous les utilisateurs depuis le modèle
         $users = $this->model->getUsers();
@@ -29,10 +29,11 @@ class AdminController {
             $mail = $_POST['mail'] ?? '';
             $pswd = $_POST['pswd'] ?? '';
             $level_id = $_POST['level_id'] ?? 0;
+            $is_admin = $_POST['is_admin'] ?? 0;
 
             // Vérifiez que toutes les valeurs sont présentes et valides
             if (!empty($firstname) && !empty($lastname) && !empty($mail) && !empty($pswd) && !empty($level_id)) {
-                if ($this->model->createUser($firstname, $lastname, $mail, $pswd, $level_id)) {
+                if ($this->model->createUser($firstname, $lastname, $mail, $pswd, $level_id, $is_admin)) {
                     header('Location: ?action=admin');
                     exit;
                 } else {
@@ -56,9 +57,10 @@ class AdminController {
             $mail = $_POST['mail'];
             $pswd = !empty($_POST['pswd']) ? $_POST['pswd'] : $user['pswd'];
             $level_id = $_POST['level_id'];
+            $is_admin = $_POST['is_admin'];
 
-            $this->model->updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id);
-            header('Location: http://localhost/karenbot/?action=admin');
+            $this->model->updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id, $is_admin);
+            header('Location: http://localhost/karenbot/admin');
             exit;
         } else {
             $this->view->renderEditForm($user);
@@ -68,7 +70,7 @@ class AdminController {
     // Supprimer un utilisateur
     public function delete($id) {
         $this->model->deleteUser($id);
-        header('Location: http://localhost/karenbot/?action=admin');
+        header('Location: http://localhost/karenbot/admin');
         exit;
     }
 }

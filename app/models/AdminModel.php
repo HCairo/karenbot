@@ -28,32 +28,33 @@ class AdminModel {
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Créer un nouvel utilisateur
-    public function createUser($firstname, $lastname, $mail, $pswd, $level_id) {
+    public function createUser($firstname, $lastname, $mail, $pswd, $level_id, $is_admin) {
         try {
-            $sql = "INSERT INTO users (firstname, lastname, mail, pswd, level_id) VALUES (:firstname, :lastname, :mail, :pswd, :level_id)";
+            $sql = "INSERT INTO users (firstname, lastname, mail, pswd, level_id, is_admin) 
+                    VALUES (:firstname, :lastname, :mail, :pswd, :level_id, :is_admin)";
             $query = $this->db->getConnection()->prepare($sql);
             $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
             $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
             $query->bindParam(':mail', $mail, PDO::PARAM_STR);
             $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
             $query->bindParam(':level_id', $level_id, PDO::PARAM_INT);
-
-            // Exécution et vérification
+            $query->bindParam(':is_admin', $is_admin, PDO::PARAM_INT);
+    
+            // Execute the query and return the result
             if ($query->execute()) {
                 return true;
             } else {
-                // Afficher les erreurs SQL si l'exécution échoue
+                // Display SQL error message if execution fails
                 $errorInfo = $query->errorInfo();
-                echo "Erreur SQL : " . $errorInfo[2]; // Afficher le message d'erreur SQL
+                echo "Erreur SQL : " . $errorInfo[2];
                 return false;
             }
         } catch (PDOException $e) {
-            // Attraper et afficher les erreurs de la base de données
+            // Catch and display database errors
             echo "Erreur SQL : " . $e->getMessage();
             return false;
         }
-    }
+    }    
 
     // Mettre à jour un utilisateur
     public function updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id) {
@@ -64,6 +65,7 @@ class AdminModel {
         $query->bindParam(':mail', $mail, PDO::PARAM_STR);
         $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
         $query->bindParam(':level_id', $level_id, PDO::PARAM_INT);
+        $query->bindParam(':is_admin', $is_admin, PDO::PARAM_INT);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
     }

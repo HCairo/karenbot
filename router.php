@@ -48,14 +48,14 @@ switch ($action) {
                     if ($id) {
                         $controller->edit($id); 
                     } else {
-                        header('Location: http://localhost/karenbot/?action=admin');
+                        header('Location: http://localhost/karenbot/admin');
                     }
                     break;
                 case 'delete':
                     if ($id) {
                         $controller->delete($id);
                     } else {
-                        header('Location: http://localhost/karenbot/?action=admin');
+                        header('Location: http://localhost/karenbot/admin');
                     }
                     break;
                 default:
@@ -64,7 +64,7 @@ switch ($action) {
             }
         } else {
             // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-            header('Location: ?action=login');
+            header('Location: login');
             exit;
         }
         break;

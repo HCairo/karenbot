@@ -9,3 +9,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Redirection vers des actions spécifiques
 RewriteRule ^login$ index.php?action=login [L,QSA]
 RewriteRule ^bot$ index.php?action=bot [L,QSA]
+RewriteRule ^admin$ index.php?action=admin [L,QSA]
