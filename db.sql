@@ -4,7 +4,7 @@ USE karenbot;
 
 CREATE TABLE level (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL
+    name VARCHAR(30) NOT NULL
 );
 
 -- Insert values into the level table
