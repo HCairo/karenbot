@@ -1,27 +1,33 @@
 <?php
-// Enable displaying errors for debugging
 // Activer l'affichage des erreurs pour le débogage
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Start a new session or resume the existing session
 // Démarrer une nouvelle session ou reprendre la session existante
 session_start();
 
-// Define constants for various directory paths
-// Définir des constantes pour divers chemins de répertoires
-const CONT = 'app/controllers/'; // Controller directory / Répertoire des contrôleurs
-const MOD = 'app/models/';       // Model directory / Répertoire des modèles
-const VIEW = 'app/views/';       // View directory / Répertoire des vues
-const JS  = 'assets/js/';        // JavaScript directory / Répertoire des fichiers JavaScript
-const CSS = 'assets/css/';       // CSS directory / Répertoire des fichiers CSS
-const IMG = 'assets/img/';       // Images directory / Répertoire des images
-const TMP = 'assets/templates/'; // Templates directory / Répertoire des templates
+// Charger les dépendances de Composer
+require_once 'vendor/autoload.php';
 
-// Include template and routing files
-// Inclure les fichiers de template et de routage
-require_once TMP . 'menu.php';   // Include the menu template / Inclure le template de menu
-require_once TMP . 'top.php';    // Include the top template / Inclure le template de haut de page
-require_once 'router.php';       // Include the router script / Inclure le script de routage
-require_once TMP . 'bottom.php'; // Include the bottom template / Inclure le template de bas de page
+// Définir des constantes pour divers chemins de répertoires
+const CONT = 'app/controllers/';
+const MOD = 'app/models/';
+const VIEW = 'app/views/';
+const JS  = 'assets/js/';
+const CSS = 'assets/css/';
+const IMG = 'assets/img/';
+const TMP = 'assets/templates/';
+
+// Charger les variables d'environnement depuis le fichier .env
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Charger le routeur pour les actions du contrôleur
+require_once 'router.php';
+// Inclure les templates de base
+require_once TMP . 'top.php';    // Template de haut de page
+require_once TMP . 'menu.php';   // Template de menu
+// Inclure le template de bas de page
+require_once TMP . 'bottom.php';

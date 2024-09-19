@@ -6,45 +6,19 @@ nlu:
       - Bonjour
       - Salut
       - Coucou
+      - Hello
 
   - intent: goodbye
     examples: |
       - Au revoir
       - Merci, à bientôt
       - C'est tout pour aujourd'hui
+      - À plus tard
 
-  - intent: password_reset
+  - intent: incident_request
     examples: |
-      - J'ai oublié mon mot de passe
-      - Comment réinitialiser mon mot de passe?
-      - Mon mot de passe ne fonctionne plus
-
-  - intent: internet_issue
-    examples: |
-      - Je n'ai plus internet
-      - La connexion réseau ne fonctionne pas
-      - Mon internet est lent
-
-  - intent: printer_issue
-    examples: |
-      - Mon imprimante ne fonctionne pas
-      - L'imprimante est en panne
-      - Je ne peux pas imprimer
-
-  - intent: software_installation
-    examples: |
-      - Comment installer ce logiciel?
-      - Je ne sais pas comment installer [software].
-      - Besoin d'aide pour installer un programme
-
-  - intent: hardware_issue
-    examples: |
-      - Mon ordinateur ne s'allume pas
-      - Le PC est en panne
-      - Mon ordinateur est bloqué
-
-  - intent: ticket_creation
-    examples: |
-      - Comment créer un ticket de support?
-      - J'ai besoin de soumettre un ticket
-      - Où puis-je soumettre un ticket de maintenance?
+      - Quels incidents sont disponibles ?
+      - J'ai un problème avec un incident
+      - Pouvez-vous me donner la liste des incidents ?
+      - J'aimerais signaler un incident
+      - Avez-vous des informations sur les incidents ?

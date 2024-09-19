@@ -1,43 +1,18 @@
 version: "3.0"
 
 stories:
-  - story: greet and ask problem
+  - story: greet and ask incident
     steps:
       - intent: greet
       - action: utter_greet
       - action: utter_ask_problem
 
-  - story: password reset
-    steps:
-      - intent: password_reset
-      - action: utter_password_reset
-
-  - story: internet issue
-    steps:
-      - intent: internet_issue
-      - action: utter_internet_issue
-
-  - story: printer issue
-    steps:
-      - intent: printer_issue
-      - action: utter_printer_issue
-
-  - story: software installation
-    steps:
-      - intent: software_installation
-      - action: utter_software_installation
-
-  - story: hardware issue
-    steps:
-      - intent: hardware_issue
-      - action: utter_hardware_issue
-
-  - story: ticket creation
-    steps:
-      - intent: ticket_creation
-      - action: utter_ticket_creation
-
   - story: goodbye
     steps:
       - intent: goodbye
       - action: utter_goodbye
+
+  - story: get incident list
+    steps:
+      - intent: incident_request
+      - action: action_get_incident_list

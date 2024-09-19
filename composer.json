@@ -3,7 +3,8 @@
     "description": "Chatbot developped to help HCL techs to gain time in their work.",
     "type": "project",
     "require": {
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "phpoffice/phpspreadsheet": "^2.2"
     },
     "autoload": {
         "psr-4": {

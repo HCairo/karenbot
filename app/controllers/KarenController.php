@@ -9,26 +9,77 @@ class KarenController {
     protected $view;
 
     public function __construct() {
-        $this->model = new KarenModel();
+        // Initialisation du modèle
+        $this->model = new KarenModel('/var/www/html/karenbot/assets/docs/ITASM.xlsm');
         $this->view = new KarenView();
     }
 
-    // Handles the main chatbot interaction
+    // Méthode pour gérer les requêtes AJAX pour le chat et renvoyer uniquement du JSON
     public function handleChat() {
-        if (isset($_POST['message']) && !empty($_POST['message'])) {
-            $userMessage = $_POST['message'];
-            
-            // Get the chatbot response from the model
+        // Read raw POST data (JSON body)
+        $rawData = file_get_contents("php://input");
+    
+        // Decode the JSON
+        $data = json_decode($rawData, true);
+    
+        // Check if the message key exists and is not empty
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['message']) && !empty($data['message'])) {
+            $userMessage = $data['message'];
+    
+            // Simulate a chatbot response for now
             $chatbotResponse = $this->model->getChatbotResponse($userMessage);
     
-            // Return the response for the AJAX call
-            echo $chatbotResponse;
+            // Send the JSON response
+            header('Content-Type: application/json');
+            echo json_encode(['response' => $chatbotResponse]);
             exit;
-            // Pass the response to the view for rendering
-            $this->view->render($userMessage, $chatbotResponse);
         } else {
-            // Render empty chat if no message is sent yet
-            $this->view->render();
+            // Invalid request
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid request']);
+            exit;
         }
+    }
+          
+
+    // Méthode pour obtenir la liste des incidents au format JSON
+    public function getIncidentList() {
+        // Obtenir la liste des incidents depuis le modèle
+        $incidents = $this->model->getIncidentsByCategory();
+
+        // Vérifier que la réponse est bien formatée
+        if (is_string($incidents)) {
+            // Encodage JSON et vérification d'erreurs
+            $jsonIncidents = json_encode(['incidents' => $incidents]);
+            if ($jsonIncidents === false) {
+                header('Content-Type: application/json', true, 500);
+                echo json_encode(['error' => 'Erreur de réponse : échec de l\'encodage JSON']);
+                exit;
+            }
+            // Envoyer la réponse JSON
+            header('Content-Type: application/json');
+            echo $jsonIncidents;
+        } else {
+            // Envoyer une erreur si le format de réponse n'est pas correct
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(['error' => 'Internal server error: invalid response format']);
+        }
+
+        exit;
+    }
+
+    // Méthode pour tester la connexion via GET
+    public function testConnection() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            header('Content-Type: application/json');
+            echo json_encode(['message' => 'API KarenModel en ligne. Envoyez une requête POST pour obtenir une réponse.']);
+            exit;
+        }
+    }
+
+    // Nouvelle méthode pour rendre la vue HTML
+    public function renderView() {
+        // Appeler la méthode render() de KarenView pour afficher la vue
+        $this->view->render();
     }
 }
