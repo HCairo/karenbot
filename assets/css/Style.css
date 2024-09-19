@@ -1,0 +1,118 @@
+@charset "UTF-8";
+/* Variables */
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Title */
+.main-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00ADE9;
+  margin-bottom: 20px;
+}
+
+/* Sub Title */
+.sub-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #00688C;
+  margin-bottom: 20px;
+}
+
+/* Create Button */
+.create-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00ADE9;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+.create-button:hover {
+  background-color: #00688C;
+}
+
+/* Table Styling */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #062834;
+  border: 1px solid #00ADE9;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.user-table thead {
+  background-color: #00688C;
+  color: white; /* Texte blanc pour les en-têtes */
+}
+.user-table th,
+.user-table td {
+  padding: 12px;
+  text-align: left;
+  color: white; /* Texte blanc pour les cellules du tableau */
+}
+.user-table tbody tr {
+  border-bottom: 1px solid #00ADE9;
+}
+
+/* Form Styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form-container label {
+  font-weight: 600;
+  color: #062834;
+}
+.form-container input,
+.form-container select {
+  padding: 10px;
+  border: 1px solid #00688C;
+  border-radius: 4px;
+}
+.form-container .submit-button {
+  background-color: #00ADE9;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.form-container .submit-button:hover {
+  background-color: #00688C;
+}
+
+/* Action Links */
+.action-link {
+  color: #00ADE9;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.action-link:hover {
+  color: #00688C;
+}
+.action-link.delete {
+  color: #EB1246;
+}
+.action-link.delete:hover {
+  color: #bc0e38;
+}/*# sourceMappingURL=Style.css.map */
