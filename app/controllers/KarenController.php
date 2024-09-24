@@ -8,8 +8,9 @@ class KarenController {
     protected $model;
     protected $view;
 
-    public function __construct() {
-        $this->model = new KarenModel();
+    public function __construct($excelFilePath) {
+        // Passer le chemin du fichier Excel au modèle
+        $this->model = new KarenModel($excelFilePath);
         $this->view = new KarenView();
     }
 
@@ -24,8 +25,6 @@ class KarenController {
             // Return the response for the AJAX call
             echo $chatbotResponse;
             exit;
-            // Pass the response to the view for rendering
-            $this->view->render($userMessage, $chatbotResponse);
         } else {
             // Render empty chat if no message is sent yet
             $this->view->render();

@@ -57,3 +57,23 @@ deactivate
 ```bash
 composer install
 ```
+
+### 3. Installation de l'environnement PhpOffice/PhpSpreadsheet
+
+```bash
+composer require phpoffice/phpspreadsheet
+```
+
+si ne foncitonne pas sur windows "Package phpoffice/phpspreadsheet has requirements incompatible with your PHP version, PHP extensions and Composer version:"
+
+```bash
+php -m
+php --ini
+```
+
+ouvrir le fichier php.ini et décommente les lignes:
+
+```ini
+extension=fileinfo
+extension=gd
+```

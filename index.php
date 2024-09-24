@@ -19,9 +19,10 @@ const CSS = 'assets/css/';       // CSS directory / Répertoire des fichiers CSS
 const IMG = 'assets/img/';       // Images directory / Répertoire des images
 const TMP = 'assets/templates/'; // Templates directory / Répertoire des templates
 
+require_once 'router.php';       // Include the router script / Inclure le script de routage
+
 // Include template and routing files
 // Inclure les fichiers de template et de routage
-require_once TMP . 'menu.php';   // Include the menu template / Inclure le template de menu
 require_once TMP . 'top.php';    // Include the top template / Inclure le template de haut de page
-require_once 'router.php';       // Include the router script / Inclure le script de routage
+require_once TMP . 'menu.php';   // Include the menu template / Inclure le template de menu
 require_once TMP . 'bottom.php'; // Include the bottom template / Inclure le template de bas de page

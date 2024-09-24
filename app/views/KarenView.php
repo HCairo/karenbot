@@ -5,11 +5,14 @@ class KarenView {
 
     public function render() {
         ?>
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="UTF-8">
-            <title>KarenBot</title>
+            <div id="chatbox">
+                <div id="messages"></div>
+                <form id="chatForm">
+                    <input type="text" name="message" id="userInput" placeholder="Tapez votre message ici..." required>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -73,15 +76,6 @@ class KarenView {
                     background-color: #0056b3;
                 }
             </style>
-        </head>
-        <body>
-            <div id="chatbox">
-                <div id="messages"></div>
-                <form id="chatForm">
-                    <input type="text" name="message" id="userInput" placeholder="Tapez votre message ici..." required>
-                    <button type="submit">Envoyer</button>
-                </form>
-            </div>
 
             <script>
                 document.getElementById('chatForm').addEventListener('submit', function(e) {
