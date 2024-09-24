@@ -14,9 +14,16 @@ class ActionGetIncidentList(Action):
         try:
             # Faire une requête GET au backend PHP pour récupérer la liste des incidents
             response = requests.get(url)
+
             if response.status_code == 200:
-                data = response.json()
-                incidents_list = data.get('incidents', "Aucun incident trouvé.")
+                try:
+                    # First, try to parse as JSON
+                    data = response.json()
+                    incidents_list = data.get('incidents', "Aucun incident trouvé.")
+                except ValueError:
+                    # If it's not JSON, treat it as plain text (HTML in your case)
+                    incidents_list = response.text
+
                 # Répondre avec la liste des incidents
                 dispatcher.utter_message(text=incidents_list)
             else:

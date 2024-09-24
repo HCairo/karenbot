@@ -27,8 +27,13 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
         addIncidentClickListeners();
     })
     .catch(error => {
+        // Handle fetch error and notify the user
+        appendBotMessage('Oops! Something went wrong. Please try again later.');
         console.error("Error during fetch:", error);
     });
+
+    // Clear the input field after submission
+    document.getElementById('userInput').value = '';
 });
 
 function appendUserMessage(message) {
@@ -51,19 +56,16 @@ function appendBotMessage(message) {
 }
 
 function addIncidentClickListeners() {
-    // Get all incident links
     const incidentLinks = document.querySelectorAll('.incident-link');
     incidentLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent the default anchor behavior
-
+            e.preventDefault();
             const incidentName = this.getAttribute('data-incident');
 
-            // Send the selected incident name to the backend
             fetch('', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     message: incidentName
@@ -71,10 +73,10 @@ function addIncidentClickListeners() {
             })
             .then(response => response.json())
             .then(data => {
-                // Display the detailed incident info in the chat
                 appendBotMessage(data.response);
             })
             .catch(error => {
+                appendBotMessage('Oops! Something went wrong. Please try again later.');
                 console.error("Error during fetch:", error);
             });
         });

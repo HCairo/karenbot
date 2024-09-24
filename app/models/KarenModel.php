@@ -82,16 +82,23 @@ class KarenModel {
             $highestRow = $sheet->getHighestRow();
             $highestColumn = $sheet->getHighestColumn();
             $categories = [];
-    
+            
             for ($row = 2; $row <= $highestRow; $row++) {  
                 $category = $sheet->getCell('A' . $row)->getValue(); // Colonne A pour les catégories
                 $incidents = [];
-    
+                
                 // Parcourir les colonnes B, C, D, etc.
                 for ($col = 'B'; $col <= $highestColumn; $col++) {
                     $incident = $sheet->getCell($col . $row)->getValue();
                     if ($incident) {
-                        $incidents[] = $incident;
+                        // Map the incident to its specific page link (e.g., "Impression!C10")
+                        $cellRef = $col . $row; // Get the cell reference, e.g., C10
+                        $incidentLink = $this->generateIncidentLink($category, $cellRef); // Generate a link
+                        
+                        $incidents[] = [
+                            'name' => $incident,
+                            'link' => $incidentLink
+                        ];
                     }
                 }
     
@@ -99,14 +106,14 @@ class KarenModel {
                     $categories[$category] = $incidents;
                 }
             }
-    
-            // Générer la réponse du chatbot avec une liste de catégories et incidents
+            
+            // Generate the response with the categories and clickable links
             $response = "<ul>";
             foreach ($categories as $category => $incidents) {
                 $response .= "<li><strong>" . $category . "</strong><ul>";
-                foreach ($incidents as $index => $incident) {
-                    // Add clickable elements (links) with the incident name as a data attribute
-                    $response .= '<li><a href="#" class="incident-link" data-incident="' . $incident . '">' . $incident . '</a></li>';
+                foreach ($incidents as $incident) {
+                    // Create a clickable link for each incident with its corresponding page reference and data-incident attribute
+                    $response .= '<li><a href="#" class="incident-link" data-incident="' . $incident['name'] . '">' . $incident['name'] . '</a></li>';
                 }
                 $response .= "</ul></li>";
             }
@@ -116,7 +123,7 @@ class KarenModel {
         } catch (\Exception $e) {
             return "Erreur lors de la lecture du fichier Excel : " . $e->getMessage();
         }
-    }     
+    }    
 
     // Fonction pour vérifier si un incident existe
     public function incidentExists($incidentName) {
@@ -140,17 +147,31 @@ class KarenModel {
 
     public function getIncidentDetails($incidentName) {
         try {
-            $sheet = $this->spreadsheet->getSheetByName('Dictées'); // Feuille des détails (par exemple "Dictées")
+            $sheet = $this->spreadsheet->getSheetByName('Impression'); // The relevant sheet
             if (!$sheet) {
-                throw new \Exception("Feuille 'Dictées' introuvable");
+                throw new \Exception("Feuille 'Impression' introuvable");
             }
+    
             $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
     
             for ($row = 2; $row <= $highestRow; $row++) {
-                $incident = $sheet->getCell('A' . $row)->getValue(); // Supposons que la colonne A contient les incidents
-                if (strtolower($incident) === strtolower($incidentName)) {
-                    $details = $sheet->getCell('B' . $row)->getValue(); // Colonne B contient les détails
-                    return "Détails pour l'incident '$incidentName' :\n" . $details;
+                $incidentTitle = $sheet->getCell('C' . $row)->getValue(); // Assume column C contains incident titles
+    
+                if (strtolower($incidentTitle) === strtolower($incidentName)) {
+                    // Fetch all information in the same row
+                    $details = [];
+                    for ($col = 'C'; $col <= $highestColumn; $col++) {
+                        $details[] = $sheet->getCell($col . $row)->getValue(); // Get all cells in the same row
+                    }
+    
+                    // Prepare a readable format
+                    $response = "Détails pour l'incident '$incidentName': <br>";
+                    foreach ($details as $detail) {
+                        $response .= $detail . "<br>";
+                    }
+    
+                    return $response;
                 }
             }
     
@@ -158,6 +179,12 @@ class KarenModel {
         } catch (\Exception $e) {
             return "Erreur lors de la récupération des détails de l'incident : " . $e->getMessage();
         }
-    }    
-}
+    }       
 
+    public function generateIncidentLink($category, $cellRef) {
+        // Assuming you want to create a link format that directs to a specific cell in the spreadsheet
+        // You might need to adjust the base URL according to your actual structure
+        $baseUrl = 'http://localhost/karenbot/viewIncident.php'; // Change to your actual view page URL
+        return $baseUrl . '?category=' . urlencode($category) . '&cell=' . urlencode($cellRef);
+    }
+}
