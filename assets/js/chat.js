@@ -6,14 +6,15 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
     // Append user message to the chat interface
     appendUserMessage(userInput);
 
-    // Send the message to the backend via fetch
+    // Send the message to the backend via fetch with request_type included
     fetch('', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            message: userInput
+            message: userInput,
+            request_type: 'chat' // Add request type to indicate a chat message
         })
     })
     .then(response => response.json())
@@ -59,24 +60,28 @@ function addIncidentClickListeners() {
 
             const incidentName = this.getAttribute('data-incident');
 
-            // Send the selected incident name to the backend
+            // Send the selected incident name to the backend with the proper request type
             fetch('', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    message: incidentName
+                    message: incidentName,  // Use the incidentName instead of userInput
+                    request_type: 'chat'  // Specify the type of request as 'chat'
                 })
+            })            
+            .then(response => {
+                console.log(response); // Check the response status and headers
+                return response.json(); // Attempt to parse it
             })
-            .then(response => response.json())
             .then(data => {
-                // Display the detailed incident info in the chat
+                console.log("Parsed JSON response:", data);
                 appendBotMessage(data.response);
             })
             .catch(error => {
                 console.error("Error during fetch:", error);
-            });
+            });            
         });
     });
 }

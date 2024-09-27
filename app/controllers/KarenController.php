@@ -18,28 +18,29 @@ class KarenController {
     public function handleChat() {
         // Read raw POST data (JSON body)
         $rawData = file_get_contents("php://input");
+        error_log("Received POST data: $rawData");
     
         // Decode the JSON
         $data = json_decode($rawData, true);
-    
-        // Check if the message key exists and is not empty
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['message']) && !empty($data['message'])) {
             $userMessage = $data['message'];
     
             // Simulate a chatbot response for now
             $chatbotResponse = $this->model->getChatbotResponse($userMessage);
     
+            // Log the response before sending
+            error_log("Sending JSON response: " . json_encode(['response' => $chatbotResponse]));
+    
             // Send the JSON response
             header('Content-Type: application/json');
             echo json_encode(['response' => $chatbotResponse]);
             exit;
         } else {
-            // Invalid request
             header('Content-Type: application/json');
             echo json_encode(['error' => 'Invalid request']);
             exit;
         }
-    }
+    }    
           
 
     // Méthode pour obtenir la liste des incidents au format JSON
