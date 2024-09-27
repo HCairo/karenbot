@@ -16,17 +16,11 @@ $logged = $_SESSION['user'] ?? null; // Vérifier si l'utilisateur est connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new KarenController();
     $controller->handleChat(); // Traiter uniquement les requêtes POST
-    // Stop further execution since we handled the POST request
-    exit; // Ensure further execution stops after handling POST
+    exit; // Stop further execution since we handled the POST request
 }
 
 // Gestion des actions GET (affichage de la vue ou autres actions)
 switch ($action) {
-    case 'get_incidents': // Handle the get_incidents action
-        $controller = new KarenController();
-        $controller->getIncidentList(); // Call the method to get incident list
-        break;
-
     default:
         if ($logged) {
             $controller = new KarenController();
@@ -49,19 +43,16 @@ switch ($action) {
             $id = $_GET['id'] ?? null;
 
             switch ($adminAction) {
-                default:
-                    $controller->index();
-                    break;
-
                 case 'create':
                     $controller->create();
                     break;
-                    
+
                 case 'edit':
                     if ($id && filter_var($id, FILTER_VALIDATE_INT)) {
                         $controller->edit($id);
                     } else {
                         header('Location: /karenbot/admin');
+                        exit;
                     }
                     break;
 
@@ -70,11 +61,17 @@ switch ($action) {
                         $controller->delete($id);
                     } else {
                         header('Location: /karenbot/admin');
+                        exit;
                     }
+                    break;
+
+                default:
+                    $controller->index();
                     break;
             }
         } else {
-            header('Location: login');
+            header('Location: /login');
+            exit;
         }
         break;
 }

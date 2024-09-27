@@ -26,7 +26,7 @@ class KarenController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['message']) && !empty($data['message'])) {
             $userMessage = $data['message'];
     
-            // Get the chatbot response from the model
+            // Simulate a chatbot response for now
             $chatbotResponse = $this->model->getChatbotResponse($userMessage);
     
             // Send the JSON response
@@ -34,33 +34,33 @@ class KarenController {
             echo json_encode(['response' => $chatbotResponse]);
             exit;
         } else {
-            // Handle the case where the message key is missing or invalid request
-            header('Content-Type: application/json', true, 400);
-            echo json_encode(['error' => 'Invalid request or missing message.']);
+            // Invalid request
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid request']);
             exit;
         }
     }
+          
 
     // Méthode pour obtenir la liste des incidents au format JSON
     public function getIncidentList() {
         // Obtenir la liste des incidents depuis le modèle
         $incidents = $this->model->getIncidentsByCategory();
 
-        // Return the incidents in JSON format for Rasa or frontend consumption
+        // Vérifier que la réponse est bien formatée
         if (is_string($incidents)) {
-            // Ensure JSON encoding
+            // Encodage JSON et vérification d'erreurs
             $jsonIncidents = json_encode(['incidents' => $incidents]);
             if ($jsonIncidents === false) {
-                // Handle JSON encoding error
                 header('Content-Type: application/json', true, 500);
                 echo json_encode(['error' => 'Erreur de réponse : échec de l\'encodage JSON']);
                 exit;
             }
-            // Send JSON response
+            // Envoyer la réponse JSON
             header('Content-Type: application/json');
             echo $jsonIncidents;
         } else {
-            // Handle incorrect response format
+            // Envoyer une erreur si le format de réponse n'est pas correct
             header('Content-Type: application/json', true, 500);
             echo json_encode(['error' => 'Internal server error: invalid response format']);
         }
@@ -73,11 +73,6 @@ class KarenController {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             header('Content-Type: application/json');
             echo json_encode(['message' => 'API KarenModel en ligne. Envoyez une requête POST pour obtenir une réponse.']);
-            exit;
-        } else {
-            // Handle invalid request method
-            header('Content-Type: application/json', true, 405);
-            echo json_encode(['error' => 'Invalid request method.']);
             exit;
         }
     }
