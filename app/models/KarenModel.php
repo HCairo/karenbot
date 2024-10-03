@@ -22,56 +22,55 @@ class KarenModel {
 
     // Fonction pour envoyer un message à Rasa et obtenir une réponse
     public function getChatbotResponse($message) {
-        // Si le message contient "incident", afficher les incidents par catégorie
+        // Check if the message is asking for incidents
         if (strpos(strtolower($message), 'incident') !== false) {
             return $this->getIncidentsByCategory();
         }
-
-        // Si le message contient un nom d'incident spécifique, afficher les détails
+    
+        // Check if the message is asking for appels
+        if (strpos(strtolower($message), 'appels') !== false) {
+            return $this->getAppelsByCategory();
+        }
+    
+        // Check if a specific incident exists
         if ($this->incidentExists($message)) {
             return $this->getIncidentDetails($message);
         }
-
-        // Logique de communication avec Rasa
+    
+        // Default behavior: send the message to Rasa for a response
         $url = 'http://localhost:5005/webhooks/rest/webhook';
-
-        // Préparer les données pour l'envoi à Rasa
+    
         $data = ['message' => $message];
-
-        // Initialiser la session cURL
+    
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        
-        // Exécuter la requête cURL
+    
         $response = curl_exec($ch);
-
-        // Gestion des erreurs cURL
+    
         if (curl_errno($ch)) {
             $error_msg = curl_error($ch);
             curl_close($ch);
             error_log("Erreur de communication avec Rasa: $error_msg");
             return "Erreur de communication avec le serveur Rasa: $error_msg";
         }
-
+    
         curl_close($ch);
-
-        // Vérifier si la réponse est bien formatée JSON
+    
         $responseDecoded = json_decode($response, true);
         if (is_null($responseDecoded)) {
             error_log("Erreur de réponse du serveur Rasa : réponse JSON invalide");
             return 'Erreur de réponse du serveur Rasa. Impossible de traiter.';
         }
-
-        // Vérifier si la réponse de Rasa est valide
+    
         if ($responseDecoded && isset($responseDecoded[0]['text'])) {
             return $responseDecoded[0]['text'];
         } else {
             return 'Désolé, je n\'ai pas compris ou le serveur est inaccessible.';
         }
-    }
+    }    
 
     public function getIncidentsByCategory() {
         try {
@@ -116,7 +115,62 @@ class KarenModel {
         } catch (\Exception $e) {
             return "Erreur lors de la lecture du fichier Excel : " . $e->getMessage();
         }
-    }     
+    }
+    
+    public function getAppelsByCategory() {
+        try {
+            // Open the "Appels" sheet
+            $sheet = $this->spreadsheet->getSheetByName('Appels');
+            if (!$sheet) {
+                throw new \Exception("Feuille 'Appels' introuvable");
+            }
+    
+            // Get the highest row and column in letter format
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+    
+            $categories = [];
+    
+            // Start from row 2 to skip headers
+            for ($row = 2; $row <= $highestRow; $row++) {
+                // Get category from column 'A'
+                $category = $sheet->getCell('A' . $row)->getValue();
+                $appels = [];
+    
+                // Iterate over columns 'B', 'C', 'D', etc.
+                for ($col = 'B'; $col <= $highestColumn; $col++) {
+                    $appel = $sheet->getCell($col . $row)->getValue();
+                    if ($appel) {
+                        $appels[] = $appel;
+                    }
+                }
+    
+                // Only add to categories if there are appels under this category
+                if (!empty($appels)) {
+                    if (!isset($categories[$category])) {
+                        $categories[$category] = [];
+                    }
+                    $categories[$category] = array_merge($categories[$category], $appels);
+                }
+            }
+    
+            // Generate the chatbot response with a list of categories and appels
+            $response = "<ul>";
+            foreach ($categories as $category => $appels) {
+                $response .= "<li><strong>" . $category . "</strong><ul>";
+                foreach ($appels as $index => $appel) {
+                    // Add clickable elements with a class "appel-link" and a "data-appel" attribute
+                    $response .= '<li><a href="#" class="appel-link" data-appel="' . $appel . '">' . $appel . '</a></li>';
+                }
+                $response .= "</ul></li>";
+            }
+            $response .= "</ul>";
+    
+            return $response;
+        } catch (\Exception $e) {
+            return "Erreur lors de la lecture du fichier Excel : " . $e->getMessage();
+        }
+    }            
 
     // Fonction pour vérifier si un incident existe
     public function incidentExists($incidentName) {

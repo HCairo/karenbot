@@ -22,3 +22,11 @@ nlu:
       - Pouvez-vous me donner la liste des incidents ?
       - J'aimerais signaler un incident
       - Avez-vous des informations sur les incidents ?
+
+  - intent: appel_request
+    examples: |
+      - Quels appels sont disponibles ?
+      - J'ai un problème avec un appel
+      - Pouvez-vous me donner la liste des appels ?
+      - J'aimerais signaler un appel
+      - Avez-vous des informations sur les appels ?

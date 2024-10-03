@@ -26,3 +26,29 @@ class ActionGetIncidentList(Action):
             dispatcher.utter_message(text=f"Une erreur est survenue : {str(e)}")
 
         return []
+
+class ActionGetAppelList(Action):
+
+    def name(self) -> str:
+        return "action_get_appel_list"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker, domain):
+        # URL of the PHP backend for retrieving "Appels" data
+        url = "http://localhost/karenbot?action=get_appels"
+
+        try:
+            # Send a GET request to the PHP backend
+            response = requests.get(url)
+            if response.status_code == 200:
+                data = response.json()
+                appels_list = data.get('appels', "Aucun appel trouvé.")
+                
+                # Respond with the list of "Appels"
+                dispatcher.utter_message(text=appels_list)
+            else:
+                dispatcher.utter_message(text="Impossible de récupérer la liste des appels.")
+        
+        except Exception as e:
+            dispatcher.utter_message(text=f"Une erreur est survenue : {str(e)}")
+
+        return []

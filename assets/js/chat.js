@@ -51,6 +51,40 @@ function appendBotMessage(message) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
+function addAppelClickListeners() {
+    const appelLinks = document.querySelectorAll('.appel-link');
+    appelLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default anchor behavior
+
+            const appelName = this.getAttribute('data-appel');
+
+            // Send the selected appel name to the backend
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: appelName,
+                    request_type: 'chat'  // Specify the type of request
+                })
+            })
+            .then(response => {
+                console.log(response); // Check the response status and headers
+                return response.json(); // Attempt to parse it
+            })
+            .then(data => {
+                console.log("Parsed JSON response:", data);
+                appendBotMessage(data.response);
+            })
+            .catch(error => {
+                console.error("Error during fetch:", error);
+            });            
+        });
+    });
+}
+
 function addIncidentClickListeners() {
     // Get all incident links
     const incidentLinks = document.querySelectorAll('.incident-link');

@@ -18,10 +18,18 @@ class KarenController {
     public function handleChat() {
         // Read raw POST data (JSON body)
         $rawData = file_get_contents("php://input");
-        error_log("Received POST data: $rawData");
+        error_log("Received POST data: " . var_export($rawData, true));
     
         // Decode the JSON
         $data = json_decode($rawData, true);
+    
+        // Check if decoding was successful
+        if (is_null($data)) {
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid JSON format']);
+            exit;
+        }
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($data['message']) && !empty($data['message'])) {
             $userMessage = $data['message'];
     
@@ -40,8 +48,7 @@ class KarenController {
             echo json_encode(['error' => 'Invalid request']);
             exit;
         }
-    }    
-          
+    }           
 
     // Méthode pour obtenir la liste des incidents au format JSON
     public function getIncidentList() {
@@ -68,6 +75,28 @@ class KarenController {
 
         exit;
     }
+
+    public function getAppelList() {
+        // Fetch "Appels" data from the model
+        $appels = $this->model->getAppelsByCategory();
+    
+        // Encode the result as JSON
+        if (is_string($appels)) {
+            $jsonAppels = json_encode(['appels' => $appels]);
+            if ($jsonAppels === false) {
+                header('Content-Type: application/json', true, 500);
+                echo json_encode(['error' => 'Erreur de réponse : échec de l\'encodage JSON']);
+                exit;
+            }
+            header('Content-Type: application/json');
+            echo $jsonAppels;
+        } else {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(['error' => 'Internal server error: invalid response format']);
+        }
+    
+        exit;
+    }    
 
     // Méthode pour tester la connexion via GET
     public function testConnection() {

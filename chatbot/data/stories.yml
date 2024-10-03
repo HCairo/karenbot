@@ -16,3 +16,8 @@ stories:
     steps:
       - intent: incident_request
       - action: action_get_incident_list
+
+  - story: get appel list
+    steps:
+      - intent: appel_request
+      - action: action_get_appel_list 
