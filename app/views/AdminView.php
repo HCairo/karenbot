@@ -5,6 +5,7 @@ class AdminView {
     // Afficher la liste des utilisateurs
     public function renderUserList($users) {
         ?>
+        <a href="."><==</a>
         <div class="container">
             <h1 class="main-title">Administration</h1>
             <h2 class="sub-title">Gestion des utilisateurs</h2>

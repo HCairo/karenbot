@@ -63,7 +63,31 @@ switch ($action) {
     case 'admin':
         if ($logged) {
             $controller = new AdminController();
-            // Handle admin actions here
+            $adminAction = $_GET['admin_action'] ?? 'index';
+            $id = $_GET['id'] ?? null;
+
+            switch ($adminAction) {
+                default:
+                    $controller->index();
+                    break;
+                case 'create':
+                    $controller->create();
+                    break;
+                case 'edit':
+                    if ($id && filter_var($id, FILTER_VALIDATE_INT)) {
+                        $controller->edit($id);
+                    } else {
+                        header('Location: /karenbot/admin');
+                    }
+                    break;
+                case 'delete':
+                    if ($id && filter_var($id, FILTER_VALIDATE_INT)) {
+                        $controller->delete($id);
+                    } else {
+                        header('Location: /karenbot/admin');
+                    }
+                    break;
+            }
         }
         break;
 }
