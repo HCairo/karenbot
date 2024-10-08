@@ -5,6 +5,7 @@ intents:
   - goodbye
   - incident_request
   - appel_request
+  - demande_request
 
 responses:
   utter_greet:
@@ -19,3 +20,4 @@ responses:
 actions:
   - action_get_incident_list
   - action_get_appel_list
+  - action_get_demande_list

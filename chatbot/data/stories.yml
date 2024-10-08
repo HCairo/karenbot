@@ -21,3 +21,8 @@ stories:
     steps:
       - intent: appel_request
       - action: action_get_appel_list 
+  
+  - story: get demande list
+    steps:
+      - intent: demande_request
+      - action: action_get_ademande_list 

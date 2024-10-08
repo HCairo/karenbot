@@ -96,7 +96,29 @@ class KarenController {
         }
     
         exit;
-    }    
+    }  
+    
+    public function getDemandesList() {
+        // Fetch "Appels" data from the model
+        $demandes = $this->model->getDemandesByCategory();
+    
+        // Encode the result as JSON
+        if (is_string($appels)) {
+            $jsonDemandes = json_encode(['demandes' => $demandes]);
+            if ($jsonDemandes === false) {
+                header('Content-Type: application/json', true, 500);
+                echo json_encode(['error' => 'Erreur de réponse : échec de l\'encodage JSON']);
+                exit;
+            }
+            header('Content-Type: application/json');
+            echo $jsonDemandes;
+        } else {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(['error' => 'Internal server error: invalid response format']);
+        }
+    
+        exit;
+    } 
 
     // Méthode pour tester la connexion via GET
     public function testConnection() {

@@ -30,3 +30,11 @@ nlu:
       - Pouvez-vous me donner la liste des appels ?
       - J'aimerais signaler un appel
       - Avez-vous des informations sur les appels ?
+
+  - intent: demande_request
+    examples: |
+      - Quels demandes sont disponibles ?
+      - J'ai un problème avec une demande
+      - Pouvez-vous me donner la liste des demandes ?
+      - J'aimerais signaler un demande
+      - Avez-vous des informations sur les demandes ?

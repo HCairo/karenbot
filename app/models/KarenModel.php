@@ -170,7 +170,54 @@ class KarenModel {
         } catch (\Exception $e) {
             return "Erreur lors de la lecture du fichier Excel : " . $e->getMessage();
         }
-    }            
+    }
+    
+    public function getDemandesByCategory() {
+        try {
+            $sheet = $this->spreadsheet->getSheetByName('Demandes');
+            if (!$sheet) {
+                throw new \Exception("Feuille 'Demandes' introuvable");
+            }
+            
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+            $categories = [];
+    
+            // Read data from the "Demandes" sheet
+            for ($row = 2; $row <= $highestRow; $row++) {  
+                $category = $sheet->getCell('A' . $row)->getValue(); // Column A for categories
+                $demandes = [];
+    
+                // Loop through columns B, C, D, etc.
+                for ($col = 'B'; $col <= $highestColumn; $col++) {
+                    $demande = $sheet->getCell($col . $row)->getValue();
+                    if ($demande) {
+                        $demandes[] = $demande;
+                    }
+                }
+    
+                if (!empty($demandes)) {
+                    $categories[$category] = $demandes;
+                }
+            }
+    
+            // Generate the chatbot response with a list of categories and demandes
+            $response = "<ul>";
+            foreach ($categories as $category => $demandes) {
+                $response .= "<li><strong>" . $category . "</strong><ul>";
+                foreach ($demandes as $index => $demande) {
+                    // Add clickable elements with a class "demande-link" and a "data-demande" attribute
+                    $response .= '<li><a href="#" class="demande-link" data-demande="' . $demande . '">' . $demande . '</a></li>';
+                }
+                $response .= "</ul></li>";
+            }
+            $response .= "</ul>";
+    
+            return $response;
+        } catch (\Exception $e) {
+            return "Erreur lors de la lecture du fichier Excel : " . $e->getMessage();
+        }
+    }    
 
     // Fonction pour vérifier si un incident existe
     public function incidentExists($incidentName) {
