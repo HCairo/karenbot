@@ -1,28 +1,28 @@
 version: "3.0"
 
 stories:
-  - story: greet and ask incident
+  - story: greet and ask for incidents
     steps:
       - intent: greet
       - action: utter_greet
-      - action: utter_ask_problem
+      - intent: incident_request
+      - action: action_fetch_incidents
+
+  - story: greet and ask for demandes
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: demande_request
+      - action: action_fetch_demandes
+
+  - story: greet and ask for appels
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: appel_request
+      - action: action_fetch_appels
 
   - story: goodbye
     steps:
       - intent: goodbye
       - action: utter_goodbye
-
-  - story: get incident list
-    steps:
-      - intent: incident_request
-      - action: action_get_incident_list
-
-  - story: get appel list
-    steps:
-      - intent: appel_request
-      - action: action_get_appel_list 
-  
-  - story: get demande list
-    steps:
-      - intent: demande_request
-      - action: action_get_ademande_list 

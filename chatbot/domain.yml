@@ -7,17 +7,26 @@ intents:
   - appel_request
   - demande_request
 
+actions:
+  - action_fetch_incidents
+  - action_fetch_demandes
+  - action_fetch_appels
+
 responses:
   utter_greet:
     - text: "Bonjour! Comment puis-je vous aider aujourd'hui?"
-    
+
   utter_goodbye:
     - text: "Au revoir! N'hésitez pas à me solliciter de nouveau."
 
   utter_ask_problem:
     - text: "Quel incident souhaitez-vous signaler ou consulter?"
 
-actions:
-  - action_get_incident_list
-  - action_get_appel_list
-  - action_get_demande_list
+  utter_incidents:
+    - text: "Voici les incidents disponibles :"
+    
+  utter_demandes:
+    - text: "Voici les demandes disponibles :"
+
+  utter_appels:
+    - text: "Voici les appels disponibles :"

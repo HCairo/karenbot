@@ -6,30 +6,8 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
     // Append user message to the chat interface
     appendUserMessage(userInput);
 
-    // Send the message to the backend via fetch with request_type included
-    fetch('', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            message: userInput,
-            request_type: 'chat' // Add request type to indicate a chat message
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Parsed JSON response:", data);
-        
-        // Append the bot's response to the chat interface
-        appendBotMessage(data.response);
-        
-        // Add event listeners to newly added incident links
-        addIncidentClickListeners();
-    })
-    .catch(error => {
-        console.error("Error during fetch:", error);
-    });
+    // Send the message to the backend via fetch
+    sendMessageToBackend(userInput, 'chat');
 });
 
 function appendUserMessage(message) {
@@ -51,71 +29,45 @@ function appendBotMessage(message) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-function addAppelClickListeners() {
-    const appelLinks = document.querySelectorAll('.appel-link');
-    appelLinks.forEach(link => {
+function addLinkClickListeners(selector, requestType) {
+    const links = document.querySelectorAll(selector);
+    links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Prevent the default anchor behavior
 
-            const appelName = this.getAttribute('data-appel');
-
-            // Send the selected appel name to the backend
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: appelName,
-                    request_type: 'chat'  // Specify the type of request
-                })
-            })
-            .then(response => {
-                console.log(response); // Check the response status and headers
-                return response.json(); // Attempt to parse it
-            })
-            .then(data => {
-                console.log("Parsed JSON response:", data);
-                appendBotMessage(data.response);
-            })
-            .catch(error => {
-                console.error("Error during fetch:", error);
-            });            
+            const name = this.getAttribute(`data-${requestType}`);
+            sendMessageToBackend(name, requestType);
         });
     });
 }
 
-function addIncidentClickListeners() {
-    // Get all incident links
-    const incidentLinks = document.querySelectorAll('.incident-link');
-    incidentLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent the default anchor behavior
-
-            const incidentName = this.getAttribute('data-incident');
-
-            // Send the selected incident name to the backend with the proper request type
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: incidentName,  // Use the incidentName instead of userInput
-                    request_type: 'chat'  // Specify the type of request as 'chat'
-                })
-            })            
-            .then(response => {
-                console.log(response); // Check the response status and headers
-                return response.json(); // Attempt to parse it
-            })
-            .then(data => {
-                console.log("Parsed JSON response:", data);
-                appendBotMessage(data.response);
-            })
-            .catch(error => {
-                console.error("Error during fetch:", error);
-            });            
-        });
+function sendMessageToBackend(message, requestType) {
+    fetch('', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: message,
+            request_type: requestType // Specify the type of request
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Attempt to parse it
+    })
+    .then(data => {
+        console.log("Parsed JSON response:", data);
+        appendBotMessage(data.response);
+    })
+    .catch(error => {
+        console.error("Error during fetch:", error);
     });
 }
+
+// Initialize click listeners for links
+addLinkClickListeners('.appel-link', 'appel');
+addLinkClickListeners('.demande-link', 'demande');
+addLinkClickListeners('.incident-link', 'incident');
