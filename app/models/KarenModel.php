@@ -182,6 +182,31 @@ class KarenModel {
     //     return $response;
     // }
     
+    // private function formatDataAsHtml($categories) {
+    //     $response = "<ul>";
+    //     foreach ($categories as $category => $items) {
+    //         $response .= "<li><strong>" . htmlspecialchars($category) . "</strong><ul>";
+    //         foreach ($items as $dataItems) {
+    //             $response .= '<li><ul>'; // Nested list for items
+    //             foreach ($dataItems as $item) {
+    //                 if (is_array($item) && isset($item['hyperlink'])) {
+    //                     // Create a proper Excel link
+    //                     $excelLink = 'excel://localhost/karenbot/assets/docs/ITASM.xlsm#' . htmlspecialchars($item['hyperlink']);
+    //                     // Create an anchor tag for the Excel link
+    //                     $response .= '<li><a href="' . $excelLink . '" target="_blank">' . htmlspecialchars($item['value']) . '</a></li>';
+    //                 } else {
+    //                     // If no hyperlink, just display the value
+    //                     $response .= '<li>' . htmlspecialchars($item) . '</li>';
+    //                 }
+    //             }
+    //             $response .= '</ul></li>'; // Close nested list
+    //         }
+    //         $response .= "</ul></li>";
+    //     }
+    //     $response .= "</ul>";
+    //     return $response;
+    // }
+
     private function formatDataAsHtml($categories) {
         $response = "<ul>";
         foreach ($categories as $category => $items) {
@@ -190,8 +215,9 @@ class KarenModel {
                 $response .= '<li><ul>'; // Nested list for items
                 foreach ($dataItems as $item) {
                     if (is_array($item) && isset($item['hyperlink'])) {
-                        // Create a proper Excel link
-                        $excelLink = 'excel://localhost/karenbot/assets/docs/ITASM.xlsm#' . htmlspecialchars($item['hyperlink']);
+                        // Construct the Excel link properly
+                        $excelLink = 'ms-excel:ofe|u=http://localhost/karenbot/assets/docs/ITASM.xlsm#' . htmlspecialchars($item['hyperlink']);
+                        
                         // Create an anchor tag for the Excel link
                         $response .= '<li><a href="' . $excelLink . '" target="_blank">' . htmlspecialchars($item['value']) . '</a></li>';
                     } else {
@@ -205,7 +231,7 @@ class KarenModel {
         }
         $response .= "</ul>";
         return $response;
-    }
+    }    
     
 
     public function incidentExists($incidentName) {
