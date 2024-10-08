@@ -12,7 +12,8 @@ class AuthModel {
     }
 
     public function login($mail, $pswd) {
-        $sql = "SELECT * FROM users WHERE mail = :mail AND pswd = :pswd";
+        // Requête pour vérifier l'utilisateur et obtenir le statut admin
+        $sql = "SELECT id, firstname, lastname, mail, is_admin FROM users WHERE mail = :mail AND pswd = :pswd";
         $query = $this->db->getConnection()->prepare($sql);
         $query->bindParam(':mail', $mail, PDO::PARAM_STR);
         $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
