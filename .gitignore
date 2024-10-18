@@ -1,2 +1,63 @@
+# Autoload
 vendor/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+chatbot/.rasa/
+
+# Rasa models
+chatbot/models/
+*.tar.gz
+
+# Unignore the MVC models folder
+!app/models/
+
+# Rasa cache
+.cache/
+.cache/**
+
+# Rasa interactive learning files
+*.db
+*.log
+*.sqlite
+
+# Virtual environment directories
+venv/
+.venv/
+
+# Jupyter Notebook checkpoints (if using notebooks)
+.ipynb_checkpoints/
+
+# Environment variables and Python environment files
+.env
+*.env
+*.venv
 rasa-env/
+*.virtualenv
+.envrc
+.pipenv
+.pipfile.lock
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Rasa training artifacts
+*.md
+events.db
+auth.db
+endpoints.yml
+credentials.yml
+
+# Pip specific files
+pip-log.txt
+pip-delete-this-directory.txt

@@ -1,0 +1,12 @@
+RewriteEngine On  # Active le moteur de réécriture
+
+# Avoid rewriting if a file or directory exists with the same name
+# Évite la réécriture si un fichier ou un répertoire existe avec le même nom
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect to specific actions
+# Redirection vers des actions spécifiques
+RewriteRule ^login$ index.php?action=login [L,QSA]
+RewriteRule ^bot$ index.php?action=bot [L,QSA]
+RewriteRule ^admin$ index.php?action=admin [L,QSA]

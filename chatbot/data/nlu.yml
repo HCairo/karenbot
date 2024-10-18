@@ -1,0 +1,40 @@
+version: "3.0"
+
+nlu:
+  - intent: greet
+    examples: |
+      - Bonjour
+      - Salut
+      - Coucou
+      - Hello
+
+  - intent: goodbye
+    examples: |
+      - Au revoir
+      - Merci, à bientôt
+      - C'est tout pour aujourd'hui
+      - À plus tard
+
+  - intent: incident_request
+    examples: |
+      - Quels incidents sont disponibles ?
+      - J'ai un problème avec un incident
+      - Pouvez-vous me donner la liste des incidents ?
+      - J'aimerais signaler un incident
+      - Avez-vous des informations sur les incidents ?
+
+  - intent: appel_request
+    examples: |
+      - Quels appels sont disponibles ?
+      - J'ai un problème avec un appel
+      - Pouvez-vous me donner la liste des appels ?
+      - J'aimerais signaler un appel
+      - Avez-vous des informations sur les appels ?
+
+  - intent: demande_request
+    examples: |
+      - Quels demandes sont disponibles ?
+      - J'ai un problème avec une demande
+      - Pouvez-vous me donner la liste des demandes ?
+      - J'aimerais signaler un demande
+      - Avez-vous des informations sur les demandes ?
