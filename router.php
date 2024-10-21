@@ -62,10 +62,10 @@ switch ($action) {
                     $controller->index(); 
                     break;
             }
-        } else {
-            // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-            header('Location: login');
-            exit;
+        // } else {
+        //     // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        //     header('Location: login');
+        //     exit;
         }
         break;
 }

@@ -30,9 +30,12 @@ class AdminController {
             $pswd = $_POST['pswd'] ?? '';
             $level_id = $_POST['level_id'] ?? 0;
             $is_admin = $_POST['is_admin'] ?? 0;
-
+    
+            // Vérification des conditions du mot de passe
+            $passwordValid = $this->validatePassword($pswd);
+    
             // Vérifiez que toutes les valeurs sont présentes et valides
-            if (!empty($firstname) && !empty($lastname) && !empty($mail) && !empty($pswd) && !empty($level_id)) {
+            if (!empty($firstname) && !empty($lastname) && !empty($mail) && $passwordValid && !empty($level_id)) {
                 if ($this->model->createUser($firstname, $lastname, $mail, $pswd, $level_id, $is_admin)) {
                     header('Location: ?action=admin');
                     exit;
@@ -40,12 +43,30 @@ class AdminController {
                     echo "Erreur lors de la création de l'utilisateur.";
                 }
             } else {
-                echo "Veuillez remplir tous les champs.";
+                if (!$passwordValid) {
+                    echo "Le mot de passe doit contenir au moins 12 caractères, une majuscule et un chiffre.";
+                } else {
+                    echo "Veuillez remplir tous les champs.";
+                }
             }
         } else {
             $this->view->renderCreateForm();
         }
     }
+    
+    private function validatePassword($password) {
+        if (strlen($password) < 12) {
+            return false;
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            return false;
+        }
+        if (!preg_match('/\d/', $password)) {
+            return false;
+        }
+        return true;
+    }
+    
 
     // Modifier un utilisateur
     public function edit($id) {

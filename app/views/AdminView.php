@@ -60,6 +60,8 @@ class AdminView {
 
                 <label for="pswd">Mot de passe :</label>
                 <input type="password" name="pswd" id="pswd" required>
+                <small>Le mot de passe doit contenir au moins 12 caractères, un chiffre et une lettre majuscule.</small>
+
 
                 <label for="level_id">Niveau</label>
                 <select name="level_id" id="level_id" required>

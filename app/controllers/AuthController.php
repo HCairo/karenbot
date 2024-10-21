@@ -39,5 +39,6 @@ class AuthController {
         $this->view->render();
     }
 }
+
 ?>
 

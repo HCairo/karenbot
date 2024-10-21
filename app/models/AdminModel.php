@@ -27,34 +27,34 @@ class AdminModel {
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);
     }
-
+    
     public function createUser($firstname, $lastname, $mail, $pswd, $level_id, $is_admin) {
         try {
+            $hashedPassword = password_hash($pswd, PASSWORD_DEFAULT);
+            
             $sql = "INSERT INTO users (firstname, lastname, mail, pswd, level_id, is_admin) 
                     VALUES (:firstname, :lastname, :mail, :pswd, :level_id, :is_admin)";
             $query = $this->db->getConnection()->prepare($sql);
             $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
             $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
             $query->bindParam(':mail', $mail, PDO::PARAM_STR);
-            $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
+            $query->bindParam(':pswd', $hashedPassword, PDO::PARAM_STR); // Utilisation du mot de passe haché
             $query->bindParam(':level_id', $level_id, PDO::PARAM_INT);
             $query->bindParam(':is_admin', $is_admin, PDO::PARAM_INT);
     
-            // Execute the query and return the result
             if ($query->execute()) {
                 return true;
             } else {
-                // Display SQL error message if execution fails
                 $errorInfo = $query->errorInfo();
                 echo "Erreur SQL : " . $errorInfo[2];
                 return false;
             }
         } catch (PDOException $e) {
-            // Catch and display database errors
             echo "Erreur SQL : " . $e->getMessage();
             return false;
         }
-    }    
+    }
+    
 
     // Mettre à jour un utilisateur
     public function updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id) {
