@@ -21,7 +21,7 @@ class KarenController {
     // Method to handle AJAX chat requests and return JSON only
     public function handleChat() {
         $data = $this->parseRequest();
-        
+    
         if (!$data) {
             return $this->sendErrorResponse('Invalid JSON format');
         }
@@ -31,10 +31,25 @@ class KarenController {
         }
     
         $userMessage = $data['message'];
+    
+        // Detect keyword search
+        if (preg_match('/search:(.*)/i', $userMessage, $matches)) {
+            $keyword = trim($matches[1]);
+            $searchResults = $this->model->searchKeyword($keyword);
+            return $this->sendJsonResponse(['response' => $searchResults]);
+        }
+    
+        // Handle link fetching (e.g., getDetails)
+        if (strpos($userMessage, 'getDetails:') === 0) {
+            list(, $sheetName, $cell) = explode(':', $userMessage);
+            $data = $this->model->getLinkData($sheetName, $cell); // Fetch the appropriate data from the model
+            return $this->sendJsonResponse(['response' => $data]);
+        }
+    
+        // Default chatbot response
         $chatbotResponse = $this->model->getChatbotResponse($userMessage);
-        
         return $this->sendJsonResponse(['response' => $chatbotResponse]);
-    }
+    }    
     
     private function parseRequest() {
         $rawData = file_get_contents("php://input");
@@ -52,38 +67,14 @@ class KarenController {
         header('Content-Type: application/json', true, 400); // Use a proper status code
         echo json_encode(['error' => $message]);
         exit;
-    }             
-
-    // Generic method to handle incident, appel, and demande lists
-    private function getList($methodName, $key) {
-        $data = $this->model->$methodName();
-        if (is_string($data)) {
-            return $this->sendJsonResponse([$key => $data]);
-        } else {
-            return $this->sendErrorResponse('Internal server error: invalid response format');
-        }
     }
 
-    public function getIncidentList() {
-        return $this->getList('getIncidentsByCategory', self::INCIDENTS_KEY);
-    }
-
-    public function getAppelList() {
-        return $this->getList('getAppelsByCategory', self::APPELS_KEY);
-    }  
-    
-    public function getDemandesList() {
-        return $this->getList('getDemandesByCategory', self::DEMANDES_KEY);
-    } 
-
-    // Method to test the connection via GET
     public function testConnection() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->sendJsonResponse(['message' => 'API KarenModel online. Send a POST request for a response.']);
         }
     }
 
-    // New method to render the HTML view
     public function renderView() {
         $this->view->render();
     }
