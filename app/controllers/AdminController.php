@@ -71,15 +71,15 @@ class AdminController {
     // Modifier un utilisateur
     public function edit($id) {
         $user = $this->model->getUserById($id);
-
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $mail = $_POST['mail'];
-            $pswd = !empty($_POST['pswd']) ? $_POST['pswd'] : $user['pswd'];
+            $pswd = !empty($_POST['pswd']) ? password_hash($_POST['pswd'], PASSWORD_DEFAULT) : $user['pswd'];  // Hacher le nouveau mot de passe ou garder l'ancien
             $level_id = $_POST['level_id'];
             $is_admin = $_POST['is_admin'];
-
+    
             $this->model->updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id, $is_admin);
             header('Location: http://localhost/karenbot/admin');
             exit;
@@ -87,6 +87,7 @@ class AdminController {
             $this->view->renderEditForm($user);
         }
     }
+    
 
     // Supprimer un utilisateur
     public function delete($id) {

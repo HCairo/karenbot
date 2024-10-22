@@ -57,18 +57,19 @@ class AdminModel {
     
 
     // Mettre à jour un utilisateur
-    public function updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id) {
-        $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, mail = :mail, pswd = :pswd, level_id = :level_id WHERE id = :id";
+    public function updateUser($id, $firstname, $lastname, $mail, $pswd, $level_id, $is_admin) {
+        $sql = "UPDATE users SET firstname = :firstname, lastname = :lastname, mail = :mail, pswd = :pswd, level_id = :level_id, is_admin = :is_admin WHERE id = :id";
         $query = $this->db->getConnection()->prepare($sql);
         $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
         $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
         $query->bindParam(':mail', $mail, PDO::PARAM_STR);
-        $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);
+        $query->bindParam(':pswd', $pswd, PDO::PARAM_STR);  // Le mot de passe est soit haché soit l'ancien mot de passe
         $query->bindParam(':level_id', $level_id, PDO::PARAM_INT);
         $query->bindParam(':is_admin', $is_admin, PDO::PARAM_INT);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
     }
+    
 
     // Supprimer un utilisateur
     public function deleteUser($id) {

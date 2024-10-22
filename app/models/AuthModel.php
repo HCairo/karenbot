@@ -19,12 +19,23 @@ class AuthModel {
         $query->execute();
         $user = $query->fetch(PDO::FETCH_ASSOC);
     
-        // Si l'utilisateur existe et que le mot de passe correspond
-        if ($user && password_verify($pswd, $user['pswd'])) {
-            return $user;  // Retourner les informations de l'utilisateur
+        // Vérifier si l'utilisateur existe
+        if ($user) {
+            // Debug pour vérifier le mot de passe en clair et le hashé
+            // echo "Mot de passe fourni : $pswd, Hash dans la base de données : " . $user['pswd'];
+
+            // Vérifier si le mot de passe correspond au hash stocké
+            if (password_verify($pswd, $user['pswd'])) {
+                return $user;  // Mot de passe correct
+            } else {
+                echo "Mot de passe incorrect.";
+            }
+        } else {
+            echo "Utilisateur non trouvé.";
         }
     
         return false; // Si le mot de passe ne correspond pas ou si l'utilisateur n'existe pas
     }
 }
+
 ?>
