@@ -13,55 +13,35 @@ class KarenController {
     const DEMANDES_KEY = 'demandes';
 
     public function __construct() {
-        // Initialize the model
         $this->model = new KarenModel('/var/www/html/karenbot/assets/docs/ITASM.xlsm');
         $this->view = new KarenView();
     }
 
-    // Method to handle AJAX chat requests and return JSON only
     public function handleChat() {
         $data = $this->parseRequest();
-        
-        if (!$data) {
-            return $this->sendErrorResponse('Invalid JSON format');
-        }
-    
-        if (empty($data['message'])) {
+        if (!$data || empty($data['message'])) {
             return $this->sendErrorResponse('Invalid request');
         }
-    
-        $userMessage = $data['message'];
-        $chatbotResponse = $this->model->getChatbotResponse($userMessage);
-        
+
+        $chatbotResponse = $this->model->getChatbotResponse($data['message']);
         return $this->sendJsonResponse(['response' => $chatbotResponse]);
     }
-    
+
     private function parseRequest() {
         $rawData = file_get_contents("php://input");
         error_log("Received POST data: " . var_export($rawData, true));
         return json_decode($rawData, true);
     }
-    
-    private function sendJsonResponse($data) {
+
+    private function sendJsonResponse($data, $statusCode = 200) {
+        http_response_code($statusCode);
         header('Content-Type: application/json');
         echo json_encode($data);
         exit;
     }
-    
-    private function sendErrorResponse($message) {
-        header('Content-Type: application/json', true, 400); // Use a proper status code
-        echo json_encode(['error' => $message]);
-        exit;
-    }             
 
-    // Generic method to handle incident, appel, and demande lists
-    private function getList($methodName, $key) {
-        $data = $this->model->$methodName();
-        if (is_string($data)) {
-            return $this->sendJsonResponse([$key => $data]);
-        } else {
-            return $this->sendErrorResponse('Internal server error: invalid response format');
-        }
+    private function sendErrorResponse($message) {
+        return $this->sendJsonResponse(['error' => $message], 400);
     }
 
     public function getIncidentList() {
@@ -70,20 +50,25 @@ class KarenController {
 
     public function getAppelList() {
         return $this->getList('getAppelsByCategory', self::APPELS_KEY);
-    }  
-    
+    }
+
     public function getDemandesList() {
         return $this->getList('getDemandesByCategory', self::DEMANDES_KEY);
-    } 
+    }
 
-    // Method to test the connection via GET
+    private function getList($methodName, $key) {
+        $data = $this->model->$methodName();
+        return is_string($data) 
+            ? $this->sendJsonResponse([$key => $data]) 
+            : $this->sendErrorResponse('Internal server error: invalid response format');
+    }
+
     public function testConnection() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $this->sendJsonResponse(['message' => 'API KarenModel online. Send a POST request for a response.']);
         }
     }
 
-    // New method to render the HTML view
     public function renderView() {
         $this->view->render();
     }
